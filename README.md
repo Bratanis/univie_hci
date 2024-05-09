@@ -1,6 +1,8 @@
 # DailyKind
 
+## Test
 
+this is a test commit
 
 ## Getting started
 
