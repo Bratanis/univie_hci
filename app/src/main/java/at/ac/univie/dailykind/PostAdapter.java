@@ -1,20 +1,28 @@
 package at.ac.univie.dailykind;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private List<Post> posts;
+    Context context;
 
-    public PostAdapter(List<Post> posts) {
+    public PostAdapter(List<Post> posts, Context context) {
         this.posts = posts;
+        this.context = context;
     }
 
     @Override
@@ -29,6 +37,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.title.setText(post.getTitle());
         holder.description.setText(post.getDescription());
         holder.image.setImageResource(post.getImageResId());
+        holder.profilePicture.setImageResource(post.getProfileViewResId());
     }
 
     @Override
@@ -40,13 +49,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         TextView title;
         ImageView image;
         TextView description;
+        CircleImageView profilePicture;
+        Button commentButton;
 
         public PostViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.postTitle);
             image = itemView.findViewById(R.id.postImage);
             description = itemView.findViewById(R.id.postDescription);
+            profilePicture = itemView.findViewById(R.id.profileView);
+            commentButton = itemView.findViewById(R.id.commentButton);
+
+            commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        CommentButtonClick(position);
+                    }
+                }
+            });
         }
+    }
+
+    // Methode zur Behandlung des Klicks auf den Button
+    private void CommentButtonClick(int position) {
+        //Toast.makeText(context, "pos: " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, CommentSection.class);
+        intent.putExtra("user", posts.get(position).getTitle());
+        context.startActivity(intent);
+
     }
 }
 
