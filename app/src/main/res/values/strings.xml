@@ -2,4 +2,11 @@
     <string name="app_name">Daily Kind</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="country_array">
+        <item>Country 1</item>
+        <item>Country 2</item>
+        <item>Country 3</item>
+        <!-- Add more countries as needed -->
+    </string-array>
 </resources>
