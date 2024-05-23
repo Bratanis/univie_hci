@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.profile) {
                 changeScreen(new ProfileFragment());
             } else if (itemId == R.id.camera) {
-                changeScreen(new Fragment());
+                changeScreen(new CameraFragment());
             }
             return true; // Return true to display the selected fragment
         });
