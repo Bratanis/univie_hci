@@ -1,7 +1,10 @@
 package at.ac.univie.dailykind;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,6 +42,7 @@ public class CameraFragment extends Fragment {
 
     private ImageButton capture;
     private ImageButton toggleFlash;
+
     private PreviewView previewView;
     private int cameraFacing = CameraSelector.LENS_FACING_BACK;
 
@@ -51,13 +55,10 @@ public class CameraFragment extends Fragment {
         capture = view.findViewById(R.id.capture);
         toggleFlash = view.findViewById(R.id.toggleFlash);
         ImageButton flipCamera = view.findViewById(R.id.flipCamera);
+        ImageButton photoGallery = view.findViewById(R.id.photoGallery);
 
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, 100);
-        } else {
-            startCamera(cameraFacing);
-        }
+        requestPermissions();
 
 
         flipCamera.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +73,29 @@ public class CameraFragment extends Fragment {
             }
         });
 
+
+        photoGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath()), "image/*");
+                final int ACTIVITY_SELECT_IMAGE = 1234;
+                startActivityForResult(intent, ACTIVITY_SELECT_IMAGE);
+            }
+        });
+
+
         return view;
     }
 
+    private void requestPermissions() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        } else {
+            startCamera(cameraFacing);
+        }
+    }
 
 
     private void startCamera(int cameraFacing) {
@@ -125,18 +146,29 @@ public class CameraFragment extends Fragment {
     }
 
     private void takePicture(ImageCapture imageCapture) {
-        File file = new File(requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+        // File path and options for saving the image
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
+
         imageCapture.takePicture(outputFileOptions, Executors.newCachedThreadPool(), new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        // Display a toast message indicating successful image capture
                         Toast.makeText(requireContext(), "Image saved at: " + file.getPath(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                startCamera(cameraFacing);
+                startCamera(cameraFacing); // Restart the camera preview
+
+                // Notify the gallery about the new image
+                MediaScannerConnection.scanFile(requireContext(), new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        // Log or handle the scan completion if necessary
+                    }
+                });
             }
 
             @Override
@@ -144,13 +176,17 @@ public class CameraFragment extends Fragment {
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        // Display a toast message indicating error in image capture
                         Toast.makeText(requireContext(), "Failed to save: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                startCamera(cameraFacing);
+                startCamera(cameraFacing); // Restart the camera preview
             }
         });
     }
+
+
+
 
     private void setFlashIcon(Camera camera) {
         if (camera.getCameraInfo().hasFlashUnit()) {
