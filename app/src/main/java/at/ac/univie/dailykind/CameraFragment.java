@@ -2,11 +2,13 @@ package at.ac.univie.dailykind;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsetsController;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,14 +27,18 @@ import androidx.fragment.app.Fragment;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CameraFragment extends Fragment {
 
-    private ImageButton capture, toggleFlash, flipCamera;
+    private ImageButton capture;
+    private ImageButton toggleFlash;
     private PreviewView previewView;
     private int cameraFacing = CameraSelector.LENS_FACING_BACK;
 
@@ -44,13 +50,14 @@ public class CameraFragment extends Fragment {
         previewView = view.findViewById(R.id.cameraPreview);
         capture = view.findViewById(R.id.capture);
         toggleFlash = view.findViewById(R.id.toggleFlash);
-        flipCamera = view.findViewById(R.id.flipCamera);
+        ImageButton flipCamera = view.findViewById(R.id.flipCamera);
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, 100);
         } else {
             startCamera(cameraFacing);
         }
+
 
         flipCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +73,8 @@ public class CameraFragment extends Fragment {
 
         return view;
     }
+
+
 
     private void startCamera(int cameraFacing) {
         int aspectRatio = aspectRatio(previewView.getWidth(), previewView.getHeight());

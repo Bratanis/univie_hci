@@ -1,11 +1,16 @@
 package at.ac.univie.dailykind;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowInsetsController;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.Objects;
 
 import at.ac.univie.dailykind.databinding.ActivityMainBinding;
 
@@ -36,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.profile) {
                 changeScreen(new ProfileFragment());
             } else if (itemId == R.id.camera) {
+                binding.bottomNavigationView.setVisibility(View.GONE);
                 changeScreen(new CameraFragment());
             }
             return true; // Return true to display the selected fragment
         });
     }
+
 
     public void changeScreen(Fragment fragment){
         FragmentManager manager = getSupportFragmentManager();
