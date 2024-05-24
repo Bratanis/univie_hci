@@ -1,12 +1,13 @@
 package at.ac.univie.dailykind;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,50 +16,88 @@ import android.view.ViewGroup;
  */
 public class RewardsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView pointsTextView;
+    private int points = 2020; // Example initial points
 
     public RewardsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TasksFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RewardsFragment newInstance(String param1, String param2) {
-        RewardsFragment fragment = new RewardsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static RewardsFragment newInstance() {
+        return new RewardsFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rewards, container, false);
+        View view = inflater.inflate(R.layout.fragment_rewards, container, false);
+
+        pointsTextView = view.findViewById(R.id.points);
+        updatePointsDisplay();
+
+        LinearLayout reward1 = view.findViewById(R.id.reward1);
+        LinearLayout reward2 = view.findViewById(R.id.reward2);
+        LinearLayout reward3 = view.findViewById(R.id.reward3);
+        LinearLayout reward4 = view.findViewById(R.id.reward4);
+        LinearLayout reward5 = view.findViewById(R.id.reward5);
+
+        // Add more reward views as needed
+
+        reward1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(100); // Example cost of 10 points
+            }
+        });
+
+        reward2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(250); // Example cost of 20 points
+            }
+        });
+
+        reward3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(500); // Example cost of 20 points
+            }
+        });
+
+        reward4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(1000); // Example cost of 20 points
+            }
+        });
+
+        reward5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(2000); // Example cost of 20 points
+            }
+        });
+
+        return view;
+    }
+
+    private void updatePointsDisplay() {
+        pointsTextView.setText(String.valueOf(points));
+    }
+
+    private void redeemReward(int cost) {
+        if (points >= cost) {
+            points -= cost;
+            updatePointsDisplay();
+            Toast.makeText(getActivity(), "Reward redeemed!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Not enough points", Toast.LENGTH_SHORT).show();
+        }
     }
 }

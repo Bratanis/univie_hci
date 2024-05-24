@@ -2,4 +2,17 @@
     <string name="app_name">Daily Kind</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="country_array">
+        <item>Austria</item>
+        <item>Belgium</item>
+        <item>Germany</item>
+        <item>Hungary</item>
+        <item>Italy</item>
+        <item>Liechtenstein</item>
+        <item>Luxenburg</item>
+        <item>Netherlands</item>
+        <item>Switzerland</item>
+        <!-- Add more countries as needed -->
+    </string-array>
 </resources>
