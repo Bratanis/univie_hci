@@ -82,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="points"
+                    android:text="93 Days"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -115,7 +115,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="points"
+                    android:text="100 Days"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -148,7 +148,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="points"
+                    android:text="87 Days"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -179,13 +179,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="Klausthethird"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="85 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -207,13 +207,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="DancingMum"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="84 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -235,13 +235,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="wellBollen"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="81 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -263,13 +263,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="Dabber"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="76 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -291,13 +291,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="numberNine"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="65 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -319,13 +319,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="coolSelly"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="63 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
 
@@ -347,13 +347,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Name"
+                    android:text="crazy Joe"
                     android:textSize="18sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="points"
+                    android:text="61 Days"
                     android:textSize="18sp"/>
             </LinearLayout>
             <!-- Add more entries if needed -->
@@ -398,7 +398,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Day Streak"
+                android:text="points"
                 android:textSize="16sp"
                 android:layout_marginBottom="24dp"
                 android:gravity="center"/>
@@ -448,14 +448,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Company Name"
+                        android:text="LiScoVouch"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Offer"
+                        android:text="Lime voucher 5€ (100 points)"
                         android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -474,7 +474,7 @@
                 <View
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@drawable/profilepic1"
+                    android:background="@drawable/company_log2"
                     android:layout_marginEnd="16dp"/>
 
                 <LinearLayout
@@ -487,14 +487,131 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Company Name"
+                        android:text="Cleanerz"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Offer"
+                        android:text="50% vaucher for house cleaning (250 points)"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reward3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="@drawable/reward_item_background"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/company_logo3"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="The Apples"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Get an apple (500 points)"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reward4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="@drawable/reward_item_background"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/company_logo4"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tech Help"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Free Laptop cleaning (1000 points)"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reward5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="@drawable/reward_item_background"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/company_logo5"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tratravelo"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trainride to Budapest from Vienna (2000 Points)"
                         android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>

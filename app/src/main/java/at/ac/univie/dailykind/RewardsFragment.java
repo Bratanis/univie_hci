@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 public class RewardsFragment extends Fragment {
 
     private TextView pointsTextView;
-    private int points = 69; // Example initial points
+    private int points = 2020; // Example initial points
 
     public RewardsFragment() {
         // Required empty public constructor
@@ -43,19 +43,44 @@ public class RewardsFragment extends Fragment {
 
         LinearLayout reward1 = view.findViewById(R.id.reward1);
         LinearLayout reward2 = view.findViewById(R.id.reward2);
+        LinearLayout reward3 = view.findViewById(R.id.reward3);
+        LinearLayout reward4 = view.findViewById(R.id.reward4);
+        LinearLayout reward5 = view.findViewById(R.id.reward5);
+
         // Add more reward views as needed
 
         reward1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redeemReward(10); // Example cost of 10 points
+                redeemReward(100); // Example cost of 10 points
             }
         });
 
         reward2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                redeemReward(20); // Example cost of 20 points
+                redeemReward(250); // Example cost of 20 points
+            }
+        });
+
+        reward3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(500); // Example cost of 20 points
+            }
+        });
+
+        reward4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(1000); // Example cost of 20 points
+            }
+        });
+
+        reward5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redeemReward(2000); // Example cost of 20 points
             }
         });
 
