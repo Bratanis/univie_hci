@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsetsController;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -53,9 +54,32 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frame_mainActivity,fragment);
+        transaction.addToBackStack("prevFragment");
         transaction.commit();
 
     }
+
+
+     // Used to restore the bottomNavigationView when the back button is pressed
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        binding.bottomNavigationView.setVisibility(View.VISIBLE); // Restore bottomNavigationView
+        // Used to update the selected menu item based on the currently displayed fragment
+        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.frame_mainActivity);
+        if (visibleFragment instanceof HomeFragment) {
+            binding.bottomNavigationView.setSelectedItemId(R.id.home);
+        } else if (visibleFragment instanceof CommunityFragment) {
+            binding.bottomNavigationView.setSelectedItemId(R.id.community);
+        } else if (visibleFragment instanceof RewardsFragment) {
+            binding.bottomNavigationView.setSelectedItemId(R.id.rewards);
+        } else if (visibleFragment instanceof ProfileFragment) {
+            binding.bottomNavigationView.setSelectedItemId(R.id.profile);
+        }
+    }
+
+
+
 
     /*hardcoded data, code of doom, entering the dangerzone:
 

@@ -52,6 +52,7 @@ public class CameraFragment extends Fragment {
         toggleFlash = view.findViewById(R.id.toggleFlash);
         ImageButton flipCamera = view.findViewById(R.id.flipCamera);
 
+
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, 100);
         } else {
