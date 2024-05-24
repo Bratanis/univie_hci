@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,6 +79,7 @@ public class CommunityFragment extends Fragment {
        // return inflater.inflate(R.layout.fragment_community, container, false);
         return view;
     }
+
 
     List<Post> posts = Arrays.asList(
             new Post("starboy123", R.drawable.image1, "A good deed can make a big difference.\n#dailykind #betterworld #lifestyle", R.drawable.profilepic1),

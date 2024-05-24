@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.description.setText(post.getDescription());
         holder.image.setImageResource(post.getImageResId());
         holder.profilePicture.setImageResource(post.getProfileViewResId());
+        holder.numberOfLikes.setText(String.valueOf(post.getNumberOfLikes()));
     }
 
     @Override
@@ -51,6 +53,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         TextView description;
         CircleImageView profilePicture;
         Button commentButton;
+        TextView numberOfLikes;
+
+        ToggleButton likeButton;
 
         public PostViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +64,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             description = itemView.findViewById(R.id.postDescription);
             profilePicture = itemView.findViewById(R.id.profileView);
             commentButton = itemView.findViewById(R.id.commentButton);
+            likeButton = itemView.findViewById(R.id.likeButton);
+            numberOfLikes = itemView.findViewById(R.id.amountOfLikes);
 
             commentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,10 +76,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     }
                 }
             });
+
+
+
+            likeButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    int num = Integer.parseInt(numberOfLikes.getText().toString());
+                    ++num;
+                    numberOfLikes.setText(String.valueOf(num));
+                } else {
+                    int num = Integer.parseInt(numberOfLikes.getText().toString());
+                    --num;
+                    numberOfLikes.setText(String.valueOf(num));
+                }
+            });
         }
     }
 
-    // Methode zur Behandlung des Klicks auf den Button
     private void CommentButtonClick(int position) {
         //Toast.makeText(context, "pos: " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, CommentSection.class);

@@ -23,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Zuerst das TasksFragment anzeigen
+
         changeScreen(new HomeFragment());
 
-        // Listener für das bottomNavigationView setzen
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.community) {
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.bottomNavigationView.setVisibility(View.GONE);
                 changeScreen(new CameraFragment());
             }
-            return true; // Return true to display the selected fragment
+            return true;
         });
     }
 
