@@ -615,7 +615,6 @@
                         android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
-
             <!-- Add more entries as needed -->
         </LinearLayout>
     </LinearLayout>
