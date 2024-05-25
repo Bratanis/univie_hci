@@ -3,6 +3,7 @@ package at.ac.univie.dailykind;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -126,6 +127,11 @@ public class ProfileFragment extends Fragment {
                 togglePasswordVisibility();
             }
         });
+
+        //load calendar
+        openCalendarFragmentBelowRecyclerView();
+
+
         return view;
     }
 
@@ -174,5 +180,22 @@ public class ProfileFragment extends Fragment {
 
         // For demonstration, show a toast message
         Toast.makeText(getActivity(), "Profile saved!", Toast.LENGTH_SHORT).show();
+    }
+
+
+    //calendar section
+    private void openCalendarFragment() {
+        CalendarFragment calendarFragment = new CalendarFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_mainActivity, calendarFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void openCalendarFragmentBelowRecyclerView() {
+        CalendarFragment calendarFragment = new CalendarFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.calendar_container, calendarFragment);
+        transaction.commit();
     }
 }
