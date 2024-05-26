@@ -130,5 +130,27 @@
             android:text="Change Data"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"/>
+
+
+        <!-- calendar section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kalender"
+            android:textSize="16sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"/>
+
+        <FrameLayout
+            android:id="@+id/calendar_container"
+            android:layout_width="match_parent"
+            android:layout_height="203dp"
+            android:layout_below="@id/recyclerViewTrending"
+            android:layout_marginTop="16dp"
+            android:background="@color/ic_launcher_background"
+            android:backgroundTint="#FDF6FE"
+            android:padding="16dp" />
     </LinearLayout>
+
+
 </ScrollView>

@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".CommentSection">
 
-    <!-- Hier kannst du deine UI-Elemente hinzufügen -->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
         android:layout_width="405dp"
