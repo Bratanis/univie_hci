@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,18 +32,14 @@ import androidx.fragment.app.Fragment;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// This section has referenced many aspects of the following github project: https://github.com/Everyday-Programmer/Android-Camera-using-CameraX/
 public class CameraFragment extends Fragment {
 
     private ImageButton capture;
@@ -221,22 +216,17 @@ public class CameraFragment extends Fragment {
 
 
     private File createImageFile() {
-        // Get the directory for saving images in the external storage
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        // Check if the directory exists or can be created
         if (!storageDir.exists() && !storageDir.mkdirs()) {
             logger.warn("CameraFragment.createImageFile() couldn't find/create a directory " + storageDir + " to create the file in!");
             return null;
         }
 
-        // Generate a unique file name for the image
         String fileName = System.currentTimeMillis() + ".jpg";
 
-        // Create the File object representing the image file
         File imageFile = new File(storageDir, fileName);
 
-        // Save the image file to the MediaStore so it appears in the standard photo gallery
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Image");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by DailyKind");
