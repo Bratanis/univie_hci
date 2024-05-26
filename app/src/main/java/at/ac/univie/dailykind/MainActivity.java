@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+    //Funktion für Hubbar. Switched screen je nach dem welches Icon gedrückt wird.
+    //nach dem start der App öffnet sich immer der Homescreen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

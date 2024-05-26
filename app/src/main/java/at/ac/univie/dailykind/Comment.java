@@ -1,5 +1,7 @@
 package at.ac.univie.dailykind;
 
+
+//Datenklasse um Kommentar bestandteile zu gruppieren
 public class Comment {
 
     private String name;

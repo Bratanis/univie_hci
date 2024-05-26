@@ -2,9 +2,11 @@ package at.ac.univie.dailykind;
 
 import java.util.Random;
 
+//Datenklasse um Post bestandteile zu gruppieren
+
 public class Post {
     private String title;
-    private int imageResId; // Resource ID for the image
+    private int imageResId;
     private String description;
 
     private int profileViewResId;
@@ -22,7 +24,6 @@ public class Post {
         } while (numberOfLikes < 100);
     }
 
-    // Getters
     public String getTitle() { return title; }
     public int getImageResId() { return imageResId; }
     public String getDescription() { return description; }

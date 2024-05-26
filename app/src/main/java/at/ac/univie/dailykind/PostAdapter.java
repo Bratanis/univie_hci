@@ -32,6 +32,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return new PostViewHolder(view);
     }
 
+    //Intitialisiert die Werte der RecyclerView mit vorgefertigten Datem
     @Override
     public void onBindViewHolder(PostViewHolder holder, int position) {
         Post post = posts.get(position);
@@ -67,6 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             likeButton = itemView.findViewById(R.id.likeButton);
             numberOfLikes = itemView.findViewById(R.id.amountOfLikes);
 
+            //Weiterleitung auf Commetsection vom jeweiligen Post
             commentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,7 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             });
 
 
-
+            //Steuert anzahl an likes von einem Post
             likeButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     int num = Integer.parseInt(numberOfLikes.getText().toString());
@@ -93,6 +95,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
     }
 
+        //Implemetierung von der Weiterleitung auf neuen CommentScreen
     private void CommentButtonClick(int position) {
         //Toast.makeText(context, "pos: " + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, CommentSection.class);
