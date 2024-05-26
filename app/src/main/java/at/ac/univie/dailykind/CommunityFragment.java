@@ -84,10 +84,10 @@ public class CommunityFragment extends Fragment {
     List<Post> posts = Arrays.asList(
             new Post("starboy123", R.drawable.image1, "A good deed can make a big difference.\n#dailykind #betterworld #lifestyle", R.drawable.profilepic1),
             new Post("luckyLuke2008", R.drawable.image2, "Helping others fulfills me \n#elderlyCare\n",R.drawable.profilepic1),
-            new Post("punchingGranniesLiefstyle", R.drawable.image3, "Sharing is the new having.\n#pickingUpTrash #newGen #kindnessOfTheDay",R.drawable.profilepic1),
+            new Post("beast123", R.drawable.image3, "Sharing is the new having.\n#pickingUpTrash #newGen #kindnessOfTheDay",R.drawable.profilepic1),
             new Post("studentScs", R.drawable.pick_up_trash, "Keep the planet clean guys!! \n #environment #friends", R.drawable.profilepic4),
             new Post("FoodLover23", R.drawable.food_distribution, "Just do it! \n #food #helping", R.drawable.profilepic1),
-            new Post("futureDoc", R.drawable.paramedic, "Working today for you guys!  \n #paramedic #ambulance", R.drawable.profilepic2)
+            new Post("futureDoc", R.drawable.paramedic, "Always at your service!  \n #paramedic #ambulance", R.drawable.profilepic2)
     );
 
 }
