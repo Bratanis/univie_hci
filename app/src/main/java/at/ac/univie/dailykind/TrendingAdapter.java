@@ -40,14 +40,16 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigiere zur Community-Seite
+                // Navigiere zur Community-Seite und übergebe die Hashtag-Information
                 FragmentTransaction transaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_mainActivity, new CommunityFragment());
+                CommunityFragment communityFragment = CommunityFragment.newInstance(trendingItem.getHashtag());
+                transaction.replace(R.id.frame_mainActivity, communityFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

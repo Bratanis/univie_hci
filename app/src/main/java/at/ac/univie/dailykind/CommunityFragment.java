@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,36 +24,19 @@ import java.util.List;
  */
 public class CommunityFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ARG_HASHTAG = "hashtag";
+    private String hashtag;
     private RecyclerView recyclerView;
     private PostAdapter adapter;
-    private List<String> dataList;
 
     public CommunityFragment() {
         // Required empty public constructor
     }
 
-    /*
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CommunityFrag.
-     */
-    // TODO: Rename and change types and number of parameters
-   /* public static CommunityFrag newInstance(String param1, String param2) {
-        CommunityFrag fragment = new CommunityFrag();
+    public static CommunityFragment newInstance(String hashtag) {
+        CommunityFragment fragment = new CommunityFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_HASHTAG, hashtag);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,33 +45,94 @@ public class CommunityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            hashtag = getArguments().getString(ARG_HASHTAG);
         }
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_community, container, false);
 
         recyclerView = view.findViewById(R.id.postRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new PostAdapter(posts, getContext()));
 
-       // return inflater.inflate(R.layout.fragment_community, container, false);
+        // Lade die Posts basierend auf dem Hashtag, wenn vorhanden, ansonsten alle Sample-Posts
+        List<Post> posts = (hashtag != null) ? getPostsForHashtag(hashtag) : getAllSamplePosts();
+        adapter = new PostAdapter(posts, getContext());
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
+    private List<Post> getPostsForHashtag(String hashtag) {
+        // Hier kannst du verschiedene Arrays basierend auf dem Hashtag zurückgeben.
+        switch (hashtag) {
+            case "#love":
+                return Arrays.asList(
+                        new Post("user1", R.drawable.image1, "Love is all we need. #love", R.drawable.profilepic1),
+                        new Post("user2", R.drawable.image2, "Spread the love. #love", R.drawable.profilepic2)
+                );
+            case "Picking up Trash":
+                return Arrays.asList(
+                        new Post("user3", R.drawable.image3, "Let's clean up! #pickingUpTrash", R.drawable.profilepic3),
+                        new Post("user4", R.drawable.image1, "Every bit helps. #pickingUpTrash", R.drawable.profilepic4)
+                );
+            case "Donau Cleanup":
+                return Arrays.asList(
+                        new Post("user5", R.drawable.image1, "Join us for the Donau Cleanup event! #DonauCleanup", R.drawable.profilepic5),
+                        new Post("user6", R.drawable.image2, "Let's keep the Donau clean. #DonauCleanup", R.drawable.profilepic1)
+                );
+            case "Mewing":
+                return Arrays.asList(
+                        new Post("user7", R.drawable.image3, "Learn about Mewing and its benefits. #Mewing", R.drawable.profilepic2),
+                        new Post("user8", R.drawable.image1, "Start Mewing today! #Mewing", R.drawable.profilepic3)
+                );
+            case "Ernst Palicek":
+                return Arrays.asList(
+                        new Post("user9", R.drawable.image2, "Remembering Ernst Palicek. #ErnstPalicek", R.drawable.profilepic4),
+                        new Post("user10", R.drawable.image3, "Legacy of Ernst Palicek. #ErnstPalicek", R.drawable.profilepic5)
+                );
+            case "#mindfulness":
+                return Arrays.asList(
+                        new Post("user11", R.drawable.image1, "Practicing mindfulness daily. #mindfulness", R.drawable.profilepic1),
+                        new Post("user12", R.drawable.image2, "Stay mindful and present. #mindfulness", R.drawable.profilepic2)
+                );
+            case "Sustainable Living":
+                return Arrays.asList(
+                        new Post("user13", R.drawable.image3, "Tips for sustainable living. #SustainableLiving", R.drawable.profilepic3),
+                        new Post("user14", R.drawable.image1, "Live sustainably for a better future. #SustainableLiving", R.drawable.profilepic4)
+                );
+            case "Green Energy":
+                return Arrays.asList(
+                        new Post("user15", R.drawable.image2, "Green energy solutions for a cleaner planet. #GreenEnergy", R.drawable.profilepic5),
+                        new Post("user16", R.drawable.image3, "Embrace green energy! #GreenEnergy", R.drawable.profilepic1)
+                );
+            case "Volunteering":
+                return Arrays.asList(
+                        new Post("user17", R.drawable.image1, "Volunteer and make a difference. #Volunteering", R.drawable.profilepic2),
+                        new Post("user18", R.drawable.image2, "Join our volunteering team. #Volunteering", R.drawable.profilepic3)
+                );
+            case "#AlpenFest":
+                return Arrays.asList(
+                        new Post("user19", R.drawable.image3, "Join us at AlpenFest! #AlpenFest", R.drawable.profilepic4),
+                        new Post("user20", R.drawable.image1, "Celebrating AlpenFest. #AlpenFest", R.drawable.profilepic5)
+                );
+            default:
+                return new ArrayList<>();
+        }
+    }
 
-    List<Post> posts = Arrays.asList(
-            new Post("starboy123", R.drawable.image1, "A good deed can make a big difference.\n#dailykind #betterworld #lifestyle", R.drawable.profilepic1),
-            new Post("luckyLuke2008", R.drawable.image2, "Helping others fulfills me \n#elderlyCare\n",R.drawable.profilepic1),
-            new Post("beast123", R.drawable.image3, "Sharing is the new having.\n#pickingUpTrash #newGen #kindnessOfTheDay",R.drawable.profilepic1),
-            new Post("studentScs", R.drawable.pick_up_trash, "Keep the planet clean guys!! \n #environment #friends", R.drawable.profilepic4),
-            new Post("FoodLover23", R.drawable.food_distribution, "Just do it! \n #food #helping", R.drawable.profilepic1),
-            new Post("futureDoc", R.drawable.paramedic, "Always at your service!  \n #paramedic #ambulance", R.drawable.profilepic2)
-    );
-
+    private List<Post> getAllSamplePosts() {
+        // Sample-Posts, die angezeigt werden, wenn kein spezifisches Hashtag vorhanden ist
+        return Arrays.asList(
+                new Post("starboy123", R.drawable.image1, "A good deed can make a big difference.\n#dailykind #betterworld #lifestyle", R.drawable.profilepic1),
+                new Post("luckyLuke2008", R.drawable.image2, "Helping others fulfills me \n#elderlyCare\n",R.drawable.profilepic1),
+                new Post("beast123", R.drawable.image3, "Sharing is the new having.\n#pickingUpTrash #newGen #kindnessOfTheDay",R.drawable.profilepic1),
+                new Post("studentScs", R.drawable.pick_up_trash, "Keep the planet clean guys!! \n #environment #friends", R.drawable.profilepic4),
+                new Post("FoodLover23", R.drawable.food_distribution, "Just do it! \n #food #helping", R.drawable.profilepic1),
+                new Post("futureDoc", R.drawable.paramedic, "Always at your service!  \n #paramedic #ambulance", R.drawable.profilepic2)
+        );
+    }
 }
+
