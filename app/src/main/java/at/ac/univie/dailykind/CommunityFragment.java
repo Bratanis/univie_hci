@@ -67,7 +67,7 @@ public class CommunityFragment extends Fragment {
     }
 
     private List<Post> getPostsForHashtag(String hashtag) {
-        // Hier kannst du verschiedene Arrays basierend auf dem Hashtag zurückgeben.
+        // Hier kann man verschiedene Arrays basierend auf dem Hashtag zurückgeben.
         switch (hashtag) {
             case "#love":
                 return Arrays.asList(
