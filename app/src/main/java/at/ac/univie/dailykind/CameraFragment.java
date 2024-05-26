@@ -1,17 +1,18 @@
 package at.ac.univie.dailykind;
 
 import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsetsController;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -27,28 +28,31 @@ import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+//import androidx.window.core.Logger;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.File;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+// This section has referenced many aspects of the following github project: https://github.com/Everyday-Programmer/Android-Camera-using-CameraX/
 public class CameraFragment extends Fragment {
 
     private ImageButton capture;
     private ImageButton toggleFlash;
-
     private PreviewView previewView;
     private int cameraFacing = CameraSelector.LENS_FACING_BACK;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
+    private static final Logger logger = LoggerFactory.getLogger(CameraFragment.class);
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
         previewView = view.findViewById(R.id.cameraPreview);
@@ -57,9 +61,7 @@ public class CameraFragment extends Fragment {
         ImageButton flipCamera = view.findViewById(R.id.flipCamera);
         ImageButton photoGallery = view.findViewById(R.id.photoGallery);
 
-
         requestPermissions();
-
 
         flipCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +75,6 @@ public class CameraFragment extends Fragment {
             }
         });
 
-
         photoGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,18 +85,28 @@ public class CameraFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
     private void requestPermissions() {
+        // Check if the permissions are granted
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            // Request permissions if they are not granted
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    }, 100);
         } else {
+            // Permissions are already granted, start the camera
             startCamera(cameraFacing);
         }
     }
+
 
 
     private void startCamera(int cameraFacing) {
@@ -140,51 +151,93 @@ public class CameraFragment extends Fragment {
 
                 preview.setSurfaceProvider(previewView.getSurfaceProvider());
             } catch (ExecutionException | InterruptedException e) {
+                logger.error("CameraFragment.startCamera() failed to start camera!");
                 e.printStackTrace();
             }
         }, ContextCompat.getMainExecutor(requireContext()));
     }
 
     private void takePicture(ImageCapture imageCapture) {
-        // File path and options for saving the image
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+
+        // Create a file to save the captured image
+        File file = createImageFile();
+
+        if (file == null) {
+            logger.warn("CameraFragment.takePicture() received a NULL file from CameraFragment.createImageFile()!");
+            Toast.makeText(requireContext(), "Failed to create file", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Set up output options for the image capture
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
 
-        imageCapture.takePicture(outputFileOptions, Executors.newCachedThreadPool(), new ImageCapture.OnImageSavedCallback() {
+        // Capture the image
+        imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                // Image capture successful
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Display a toast message indicating successful image capture
                         Toast.makeText(requireContext(), "Image saved at: " + file.getPath(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                startCamera(cameraFacing); // Restart the camera preview
 
-                // Notify the gallery about the new image
                 MediaScannerConnection.scanFile(requireContext(), new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
                     @Override
                     public void onScanCompleted(String path, Uri uri) {
-                        // Log or handle the scan completion if necessary
+                        logger.info("Scan completed!");
                     }
                 });
+
+                // Restart the camera preview
+                startCamera(cameraFacing);
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
+                // Error occurred during image capture
+
+                // Run on UI thread to show an error toast message
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Display a toast message indicating error in image capture
                         Toast.makeText(requireContext(), "Failed to save: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                startCamera(cameraFacing); // Restart the camera preview
+
+                // Restart the camera preview
+                startCamera(cameraFacing);
             }
         });
     }
 
+
+
+
+    private File createImageFile() {
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        if (!storageDir.exists() && !storageDir.mkdirs()) {
+            logger.warn("CameraFragment.createImageFile() couldn't find/create a directory " + storageDir + " to create the file in!");
+            return null;
+        }
+
+        String fileName = System.currentTimeMillis() + ".jpg";
+
+        File imageFile = new File(storageDir, fileName);
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "Image");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image captured by DailyKind");
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.Images.Media.DATA, imageFile.getAbsolutePath());
+        ContentResolver contentResolver = requireContext().getContentResolver();
+        contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        logger.info("CameraFragment.createImageFile() will create file:" + fileName + " at " + storageDir);
+        return imageFile;
+    }
 
 
 
