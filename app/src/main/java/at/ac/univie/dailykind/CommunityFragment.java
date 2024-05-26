@@ -71,53 +71,53 @@ public class CommunityFragment extends Fragment {
         switch (hashtag) {
             case "#love":
                 return Arrays.asList(
-                        new Post("user1", R.drawable.image1, "Love is all we need. #love", R.drawable.profilepic1),
-                        new Post("user2", R.drawable.image2, "Spread the love. #love", R.drawable.profilepic2)
+                        new Post("studentScs", R.drawable.image1, "Love is all we need. #love", R.drawable.profilepic1),
+                        new Post("beast123", R.drawable.image2, "Spread the love. #love", R.drawable.profilepic2)
                 );
             case "Picking up Trash":
                 return Arrays.asList(
-                        new Post("user3", R.drawable.image3, "Let's clean up! #pickingUpTrash", R.drawable.profilepic3),
-                        new Post("user4", R.drawable.image1, "Every bit helps. #pickingUpTrash", R.drawable.profilepic4)
+                        new Post("futureDoc", R.drawable.image3, "Let's clean up! #pickingUpTrash", R.drawable.profilepic3),
+                        new Post("beast123", R.drawable.image1, "Every bit helps. #pickingUpTrash", R.drawable.profilepic4)
                 );
             case "Donau Cleanup":
                 return Arrays.asList(
-                        new Post("user5", R.drawable.image1, "Join us for the Donau Cleanup event! #DonauCleanup", R.drawable.profilepic5),
-                        new Post("user6", R.drawable.image2, "Let's keep the Donau clean. #DonauCleanup", R.drawable.profilepic1)
+                        new Post("beast123", R.drawable.image1, "Join us for the Donau Cleanup event! #DonauCleanup", R.drawable.profilepic5),
+                        new Post("starboy123", R.drawable.image2, "Let's keep the Donau clean. #DonauCleanup", R.drawable.profilepic1)
                 );
             case "Mewing":
                 return Arrays.asList(
-                        new Post("user7", R.drawable.image3, "Learn about Mewing and its benefits. #Mewing", R.drawable.profilepic2),
-                        new Post("user8", R.drawable.image1, "Start Mewing today! #Mewing", R.drawable.profilepic3)
+                        new Post("studentScs", R.drawable.image3, "Learn about Mewing and its benefits. #Mewing", R.drawable.profilepic2),
+                        new Post("starboy123", R.drawable.image1, "Start Mewing today! #Mewing", R.drawable.profilepic3)
                 );
             case "Ernst Palicek":
                 return Arrays.asList(
-                        new Post("user9", R.drawable.image2, "Remembering Ernst Palicek. #ErnstPalicek", R.drawable.profilepic4),
-                        new Post("user10", R.drawable.image3, "Legacy of Ernst Palicek. #ErnstPalicek", R.drawable.profilepic5)
+                        new Post("luckyLuke2008", R.drawable.image2, "Remembering Ernst Palicek. #ErnstPalicek", R.drawable.profilepic4),
+                        new Post("studentScs", R.drawable.image3, "Legacy of Ernst Palicek. #ErnstPalicek", R.drawable.profilepic5)
                 );
             case "#mindfulness":
                 return Arrays.asList(
-                        new Post("user11", R.drawable.image1, "Practicing mindfulness daily. #mindfulness", R.drawable.profilepic1),
-                        new Post("user12", R.drawable.image2, "Stay mindful and present. #mindfulness", R.drawable.profilepic2)
+                        new Post("starboy123", R.drawable.image1, "Practicing mindfulness daily. #mindfulness", R.drawable.profilepic1),
+                        new Post("futureDoc", R.drawable.image2, "Stay mindful and present. #mindfulness", R.drawable.profilepic2)
                 );
             case "Sustainable Living":
                 return Arrays.asList(
-                        new Post("user13", R.drawable.image3, "Tips for sustainable living. #SustainableLiving", R.drawable.profilepic3),
-                        new Post("user14", R.drawable.image1, "Live sustainably for a better future. #SustainableLiving", R.drawable.profilepic4)
+                        new Post("beast123", R.drawable.image3, "Tips for sustainable living. #SustainableLiving", R.drawable.profilepic3),
+                        new Post("luckyLuke2008", R.drawable.image1, "Live sustainably for a better future. #SustainableLiving", R.drawable.profilepic4)
                 );
             case "Green Energy":
                 return Arrays.asList(
-                        new Post("user15", R.drawable.image2, "Green energy solutions for a cleaner planet. #GreenEnergy", R.drawable.profilepic5),
-                        new Post("user16", R.drawable.image3, "Embrace green energy! #GreenEnergy", R.drawable.profilepic1)
+                        new Post("futureDoc", R.drawable.image2, "Green energy solutions for a cleaner planet. #GreenEnergy", R.drawable.profilepic5),
+                        new Post("beast123", R.drawable.image3, "Embrace green energy! #GreenEnergy", R.drawable.profilepic1)
                 );
             case "Volunteering":
                 return Arrays.asList(
-                        new Post("user17", R.drawable.image1, "Volunteer and make a difference. #Volunteering", R.drawable.profilepic2),
-                        new Post("user18", R.drawable.image2, "Join our volunteering team. #Volunteering", R.drawable.profilepic3)
+                        new Post("starboy123", R.drawable.image1, "Volunteer and make a difference. #Volunteering", R.drawable.profilepic2),
+                        new Post("luckyLuke2008", R.drawable.image2, "Join our volunteering team. #Volunteering", R.drawable.profilepic3)
                 );
             case "#AlpenFest":
                 return Arrays.asList(
-                        new Post("user19", R.drawable.image3, "Join us at AlpenFest! #AlpenFest", R.drawable.profilepic4),
-                        new Post("user20", R.drawable.image1, "Celebrating AlpenFest. #AlpenFest", R.drawable.profilepic5)
+                        new Post("luckyLuke2008", R.drawable.image3, "Join us at AlpenFest! #AlpenFest", R.drawable.profilepic4),
+                        new Post("starboy123", R.drawable.image1, "Celebrating AlpenFest. #AlpenFest", R.drawable.profilepic5)
                 );
             default:
                 return new ArrayList<>();
