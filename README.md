@@ -18,7 +18,7 @@ Library: de.hdodenhof:circleimageview:3.1.0, um runde Bilder zu erstellen
 Library: CameraX
 
 Dauer der Entwicklung:
-12 Personenarbeitstage
+circa 10 Personenarbeitstage
 
 Weitere Anmerkungen:
 keine
