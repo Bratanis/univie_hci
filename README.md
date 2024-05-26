@@ -14,7 +14,7 @@ Geraet(e), auf dem(denen) getestet wurde:
 Emuliert: Pixel 6 API Level 27
 
 Externe Libraries und Frameworks:
-keine
+Library: de.hdodenhof:circleimageview:3.1.0, um runde Bilder zu erstellen 
 
 Dauer der Entwicklung:
 12 Personenarbeitstage
