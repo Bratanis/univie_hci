@@ -8,10 +8,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsetsController;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -30,10 +30,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.File;
-import java.util.Objects;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -42,13 +40,12 @@ public class CameraFragment extends Fragment {
 
     private ImageButton capture;
     private ImageButton toggleFlash;
-
     private PreviewView previewView;
     private int cameraFacing = CameraSelector.LENS_FACING_BACK;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
 
         previewView = view.findViewById(R.id.cameraPreview);
@@ -57,9 +54,7 @@ public class CameraFragment extends Fragment {
         ImageButton flipCamera = view.findViewById(R.id.flipCamera);
         ImageButton photoGallery = view.findViewById(R.id.photoGallery);
 
-
         requestPermissions();
-
 
         flipCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +68,6 @@ public class CameraFragment extends Fragment {
             }
         });
 
-
         photoGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,19 +78,18 @@ public class CameraFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
     private void requestPermissions() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
         } else {
             startCamera(cameraFacing);
         }
     }
-
 
     private void startCamera(int cameraFacing) {
         int aspectRatio = aspectRatio(previewView.getWidth(), previewView.getHeight());
@@ -146,21 +139,24 @@ public class CameraFragment extends Fragment {
     }
 
     private void takePicture(ImageCapture imageCapture) {
-        // File path and options for saving the image
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".jpg");
+        File file = createImageFile();
+
+        if (file == null) {
+            Toast.makeText(requireContext(), "Failed to create file", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(file).build();
 
-        imageCapture.takePicture(outputFileOptions, Executors.newCachedThreadPool(), new ImageCapture.OnImageSavedCallback() {
+        imageCapture.takePicture(outputFileOptions, executor, new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Display a toast message indicating successful image capture
                         Toast.makeText(requireContext(), "Image saved at: " + file.getPath(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                startCamera(cameraFacing); // Restart the camera preview
 
                 // Notify the gallery about the new image
                 MediaScannerConnection.scanFile(requireContext(), new String[]{file.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
@@ -169,6 +165,8 @@ public class CameraFragment extends Fragment {
                         // Log or handle the scan completion if necessary
                     }
                 });
+
+                startCamera(cameraFacing); // Restart the camera preview
             }
 
             @Override
@@ -176,7 +174,6 @@ public class CameraFragment extends Fragment {
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Display a toast message indicating error in image capture
                         Toast.makeText(requireContext(), "Failed to save: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -185,8 +182,15 @@ public class CameraFragment extends Fragment {
         });
     }
 
+    private File createImageFile() {
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        if (!storageDir.exists() && !storageDir.mkdirs()) {
+            return null;
+        }
 
-
+        String fileName = System.currentTimeMillis() + ".jpg";
+        return new File(storageDir, fileName);
+    }
 
     private void setFlashIcon(Camera camera) {
         if (camera.getCameraInfo().hasFlashUnit()) {
