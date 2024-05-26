@@ -27,14 +27,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         return new CommentViewHolder(view);
     }
 
+    //Initialisiert Werte für Comments
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = comments.get(position);
         holder.commentText.setText(comment.getComment());
         holder.profileName.setText(comment.getName());
         holder.profilePic.setImageResource(comment.getProfileId());
-        //ImageView image = comments.get(position).getProfileId();
-       // holder.commentText.setText(comment);
     }
 
     @Override

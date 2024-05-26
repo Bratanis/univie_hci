@@ -49,6 +49,7 @@ public class CommunityFragment extends Fragment {
         }
     }
 
+    //Wird ausgeführt nach dem klicken auf den Community button
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
