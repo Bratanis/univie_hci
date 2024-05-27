@@ -33,14 +33,15 @@
 
         <!-- Email -->
         <TextView
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"
             android:textSize="16sp"
             android:layout_marginBottom="8dp"/>
         <EditText
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
 
         <!-- Password -->
         <TextView
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
@@ -63,7 +64,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <EditText
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -72,7 +74,7 @@
                 android:hint="Enter your password"
                 android:enabled="false"/>
             <ImageButton
-
+                android:layout_marginRight="8dp"
                 android:id="@+id/toggle_password_visibility"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -85,7 +87,8 @@
 
         <!-- Street -->
         <TextView
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -94,7 +97,8 @@
             android:textSize="16sp" />
 
         <EditText
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/street"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +107,8 @@
 
         <!-- City -->
         <EditText
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +117,8 @@
 
         <!-- ZIP Code -->
         <EditText
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/zip_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +127,8 @@
 
         <!-- Country Picker -->
         <TextView
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Country"
@@ -129,7 +136,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"/>
         <Spinner
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:id="@+id/country_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -147,7 +155,8 @@
 
         <!-- calendar section -->
         <TextView
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calendar"

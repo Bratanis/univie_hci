@@ -88,7 +88,7 @@ public class CalendarFragment extends Fragment {
         values.put(CalendarContract.Events.RRULE, "FREQ=DAILY");
 
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "Keine Berechtigung zum Schreiben im Kalender");
+            //Log.e(TAG, "Keine Berechtigung zum Schreiben im Kalender");
             return;
         }
 
@@ -96,11 +96,11 @@ public class CalendarFragment extends Fragment {
 
         if (uri != null) {
             long eventId = ContentUris.parseId(uri);
-            Log.i(TAG, "Ereignis hinzugefügt, ID: " + eventId);
-            Toast.makeText(getContext(), "Ereignis hinzugefügt", Toast.LENGTH_SHORT).show();
+            //Log.i(TAG, "Event added, ID: " + eventId);
+            Toast.makeText(getContext(), "Event added", Toast.LENGTH_SHORT).show();
         } else {
-            Log.e(TAG, "Fehler beim Hinzufügen des Ereignisses");
-            Toast.makeText(getContext(), "Fehler beim Hinzufügen des Ereignisses", Toast.LENGTH_SHORT).show();
+            //Log.e(TAG, "Fehler beim Hinzufügen des Ereignisses");
+            Toast.makeText(getContext(), "Error adding Event", Toast.LENGTH_SHORT).show();
         }
     }
 
