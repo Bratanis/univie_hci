@@ -12,6 +12,7 @@ API-Version: Android API-Level 27
 
 Geraet(e), auf dem(denen) getestet wurde:
 Emuliert: Pixel 6 API Level 27
+Samsung Galaxy A23 API Level 34
 
 Externe Libraries und Frameworks:
 Library: de.hdodenhof:circleimageview:3.1.0, um runde Bilder zu erstellen
