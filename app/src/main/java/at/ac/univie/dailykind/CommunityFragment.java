@@ -1,5 +1,6 @@
 package at.ac.univie.dailykind;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -62,6 +64,21 @@ public class CommunityFragment extends Fragment {
         List<Post> posts = (hashtag != null) ? getPostsForHashtag(hashtag) : getAllSamplePosts();
         adapter = new PostAdapter(posts, getContext());
         recyclerView.setAdapter(adapter);
+
+        FloatingActionButton buttonNewPost = view.findViewById(R.id.buttonNewPost);
+        buttonNewPost.setOnClickListener(v -> {
+            // Start the SubmitPostFragment
+            Fragment submitPostFragment = new SubmitPostFragment();
+            Bundle args = new Bundle();
+            // Pass a sample URI, in a real application this would be dynamic
+            args.putParcelable("imageUri", Uri.parse("android.resource://at.ac.univie.dailykind/drawable/image2"));
+            submitPostFragment.setArguments(args);
+
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.frame_mainActivity, submitPostFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         return view;
     }
