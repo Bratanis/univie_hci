@@ -1,10 +1,12 @@
 package at.ac.univie.dailykind;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class CameraFragment extends Fragment {
     private PreviewView previewView;
     private int cameraFacing = CameraSelector.LENS_FACING_BACK;
     private Executor executor = Executors.newSingleThreadExecutor();
+    private static final int ACTIVITY_SELECT_IMAGE = 1234;
 
     private static final Logger logger = LoggerFactory.getLogger(CameraFragment.class);
 
@@ -81,7 +84,7 @@ public class CameraFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setDataAndType(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath()), "image/*");
-                final int ACTIVITY_SELECT_IMAGE = 1234;
+
                 startActivityForResult(intent, ACTIVITY_SELECT_IMAGE);
             }
         });
@@ -232,6 +235,25 @@ public class CameraFragment extends Fragment {
                 .replace(R.id.frame_mainActivity, submitPostFragment) // (For Dev) Possibly the wrong R.id here!
                 .addToBackStack(null) // Optional: if you want to add this transaction to the back stack
                 .commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTIVITY_SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    navigateToPostFragment(filePath);
+                }
+            }
+        }
     }
 
 
