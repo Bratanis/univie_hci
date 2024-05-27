@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class PostFragment extends Fragment {
+public class SubmitPostFragment extends Fragment {
 
     @Nullable
     @Override

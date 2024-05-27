@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.camera.core.AspectRatio;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
@@ -88,6 +89,8 @@ public class CameraFragment extends Fragment {
         return view;
     }
 
+
+
     private void requestPermissions() {
         // Check if the permissions are granted
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
@@ -157,6 +160,7 @@ public class CameraFragment extends Fragment {
         }, ContextCompat.getMainExecutor(requireContext()));
     }
 
+
     private void takePicture(ImageCapture imageCapture) {
 
         // Create a file to save the captured image
@@ -219,13 +223,13 @@ public class CameraFragment extends Fragment {
         bundle.putString("imagePath", filePath);
 
         // Assuming you have an ImageFragment that will display the image
-        PostFragment postFragment = new PostFragment();
-        postFragment.setArguments(bundle);
+        SubmitPostFragment submitPostFragment = new SubmitPostFragment();
+        submitPostFragment.setArguments(bundle);
 
         // Navigate to the ImageFragment
         getParentFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame_mainActivity, postFragment) // (For Dev) Possibly the wrong R.id here!
+                .replace(R.id.frame_mainActivity, submitPostFragment) // (For Dev) Possibly the wrong R.id here!
                 .addToBackStack(null) // Optional: if you want to add this transaction to the back stack
                 .commit();
     }
