@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        binding.bottomNavigationView.setVisibility(View.VISIBLE); // Restore bottomNavigationView
+
         // Used to update the selected menu item based on the currently displayed fragment
         Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.frame_mainActivity);
         if (visibleFragment instanceof HomeFragment) {
@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
             binding.bottomNavigationView.setSelectedItemId(R.id.rewards);
         } else if (visibleFragment instanceof ProfileFragment) {
             binding.bottomNavigationView.setSelectedItemId(R.id.profile);
+        }
+
+        if (! (visibleFragment instanceof CameraFragment)) {
+            binding.bottomNavigationView.setVisibility(View.VISIBLE); // Restore bottomNavigationView if needed
         }
     }
 

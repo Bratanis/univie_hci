@@ -187,6 +187,8 @@ public class CameraFragment extends Fragment {
                     @Override
                     public void onScanCompleted(String path, Uri uri) {
                         logger.info("Scan completed!");
+                        // Navigate to the PostFragment and pass the file path of the picture taken
+                        navigateToPostFragment(file.getAbsolutePath());
                     }
                 });
 
@@ -210,6 +212,22 @@ public class CameraFragment extends Fragment {
                 startCamera(cameraFacing);
             }
         });
+    }
+
+    private void navigateToPostFragment(String filePath) {
+        Bundle bundle = new Bundle();
+        bundle.putString("imagePath", filePath);
+
+        // Assuming you have an ImageFragment that will display the image
+        PostFragment postFragment = new PostFragment();
+        postFragment.setArguments(bundle);
+
+        // Navigate to the ImageFragment
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_mainActivity, postFragment) // (For Dev) Possibly the wrong R.id here!
+                .addToBackStack(null) // Optional: if you want to add this transaction to the back stack
+                .commit();
     }
 
 
