@@ -1,6 +1,5 @@
 package at.ac.univie.dailykind;
 
-<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,29 +7,28 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-=======
+
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
->>>>>>> 0a971baa2ec424cd092a005647669facdfb98250
 
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class SubmitPostFragment extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_post, container, false);
-    }
+    private Uri imageUri;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -51,16 +49,10 @@ public class SubmitPostFragment extends Fragment {
                 Toast.makeText(requireContext(), "Image path is null", Toast.LENGTH_SHORT).show();
             }
         }
-=======
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
+    }
 
-public class SubmitPostFragment extends Fragment {
 
-    private Uri imageUri;
 
     public SubmitPostFragment() {
         // Required empty public constructor
@@ -96,6 +88,6 @@ public class SubmitPostFragment extends Fragment {
         });
 
         return view;
->>>>>>> 0a971baa2ec424cd092a005647669facdfb98250
+
     }
 }
