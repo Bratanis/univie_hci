@@ -11,11 +11,11 @@
     <item
         android:id="@+id/community"
         android:icon="@drawable/baseline_groups_24"
-        android:title="Community"/>
+        android:title="DailyKindWall"/>
 
     <item
         android:id="@+id/camera"
-        android:icon="@drawable/baseline_add_box_24"
+        android:icon="@drawable/baseline_camera_alt_24"
         android:title="Camera"/>
 
     <item
