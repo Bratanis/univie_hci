@@ -1,17 +1,25 @@
 package at.ac.univie.dailykind;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +34,7 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.Preview;
+import androidx.camera.core.TorchState;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
@@ -286,8 +295,8 @@ public class CameraFragment extends Fragment {
 
 
     private void setFlashIcon(Camera camera) {
-        if (camera.getCameraInfo().hasFlashUnit()) {
-            if (camera.getCameraInfo().getTorchState().getValue() == 0) {
+        if (camera.getCameraInfo().hasFlashUnit()) { // returns false by default on Google pixel 6 API 27 but works on API level 30
+            if (camera.getCameraInfo().getTorchState().getValue() == TorchState.OFF) {
                 camera.getCameraControl().enableTorch(true);
                 toggleFlash.setImageResource(R.drawable.baseline_flash_off_24);
             } else {
@@ -304,6 +313,8 @@ public class CameraFragment extends Fragment {
         }
     }
 
+
+
     private int aspectRatio(int width, int height) {
         double previewRatio = (double) Math.max(width, height) / Math.min(width, height);
         if (Math.abs(previewRatio - 4.0 / 3.0) <= Math.abs(previewRatio - 16.0 / 9.0)) {
@@ -311,4 +322,11 @@ public class CameraFragment extends Fragment {
         }
         return AspectRatio.RATIO_16_9;
     }
+
+
+
+    // This part of the code attempts to fix the picture rotation issue
+
+
 }
+
