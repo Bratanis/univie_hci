@@ -1,5 +1,6 @@
 package at.ac.univie.dailykind;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,7 +132,19 @@ public class ProfileFragment extends Fragment {
         });
 
         //load calendar
-        openCalendarFragmentBelowRecyclerView();
+        //openCalendarFragmentBelowRecyclerView();
+
+        FloatingActionButton buttonCalendar = view.findViewById(R.id.calenderIcon);
+        buttonCalendar.setOnClickListener(v -> {
+            Fragment calendarFrag = new CalendarFragment();
+            Bundle args = new Bundle();
+            calendarFrag.setArguments(args);
+
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.frame_mainActivity, calendarFrag)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
 
         return view;
@@ -184,7 +199,7 @@ public class ProfileFragment extends Fragment {
 
 
     //calendar section
-    private void openCalendarFragment() {
+  /*  private void openCalendarFragment() {
         CalendarFragment calendarFragment = new CalendarFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_mainActivity, calendarFragment);
@@ -197,5 +212,5 @@ public class ProfileFragment extends Fragment {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.calendar_container, calendarFragment);
         transaction.commit();
-    }
+    }*/
 }
