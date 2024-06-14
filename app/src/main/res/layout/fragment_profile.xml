@@ -12,15 +12,6 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/calenderIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:scaleType="fitXY"
-            android:tint="@android:color/white"
-            android:src="@drawable/baseline_edit_calendar_24" />
-
         <!-- Profile Picture -->
         <ImageView
             android:id="@+id/profile_image"
@@ -42,14 +33,28 @@
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"/>
 
-        <!-- Edit Button -->
-        <Button
-            android:id="@+id/edit_button"
-            android:layout_width="wrap_content"
+        <!-- Edit and Calendar Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Change Data"
-            android:layout_gravity="center"
-            android:layout_marginTop="24dp"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="12dp">
+
+            <Button
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Data"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/calenderIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to Calendar" />
+        </LinearLayout>
 
         <!-- Email -->
         <TextView
@@ -79,7 +84,6 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"/>
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -103,8 +107,6 @@
                 android:enabled="false"/>
         </LinearLayout>
 
-        <!-- Address -->
-
         <!-- Street -->
         <TextView
             android:layout_marginLeft="8dp"
@@ -113,9 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="Address"
+            android:text="Street"
             android:textSize="16sp" />
-
         <EditText
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -163,29 +164,6 @@
             android:layout_height="wrap_content"
             android:enabled="false"/>
 
-
-
-
-        <!-- calendar section
-        <TextView
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calendar"
-            android:textSize="16sp"
-            android:layout_marginTop="32dp"
-            />
-
-        <FrameLayout
-            android:id="@+id/calendar_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/recyclerViewTrending"
-            android:background="@color/ic_launcher_background"
-            android:backgroundTint="#FDF6FE" />
-             -->
     </LinearLayout>
-
 
 </ScrollView>
